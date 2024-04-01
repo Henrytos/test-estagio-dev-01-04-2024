@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .models import Consumption
+from calculator_python import calculator
 
 # TODO: Your list view should do the following tasks
 """
@@ -28,3 +30,24 @@ this page must be provided in the main page.
 def view2():
     # Create the second view here.
     pass
+
+def home(request):
+    if request.method=="POST":
+        rate_one =  int(request.POST["rate_one"])
+        rate_two =  int(request.POST["rate_two"])
+        rate_three =  int(request.POST["rate_three"])
+        distributor_tax = float(request.POST['rate_value'])
+        tax_type = request.POST['rate_type']
+        
+        calculator([rate_one,rate_two,rate_three],distributor_tax,tax_type)
+        # calculadora = Consumption(
+        #     consumo_mes1=rate_one,
+        #     consumo_mes2=rate_two,
+        #     consumo_mes3=rate_three,
+        #     tarifa_distribuidora=rate_value,
+        #     tipo_tarifa=rate_type
+        # )
+        # calculadora.save()
+        return render(request,'home.html')
+    else:
+        return render(request,'home.html')

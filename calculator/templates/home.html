@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block content %} 
+
+<h2 class="text-center">Calculadora de economia</h2>
+<hr>
+<form method="POST" action="{% url 'home' %}" >
+  {% csrf_token %}
+  <div class="form-group mb-2">
+    <label for="rate_one">Taxa do 1-Mês</label>
+    <input type="number" class="form-control" id="rate_one" name="rate_one"  placeholder="12.000,00" required>
+
+    <label for="rate_two">Taxa do 2-Mês</label>
+    <input type="number" class="form-control" id="rate_two" name="rate_two"  placeholder="12.000,00" required>
+
+    <label for="rate_three">Taxa do 3-Mês</label>
+    <input type="number" class="form-control" id="rate" name="rate_three"  placeholder="12.000,00" required>
+  </div>
+
+  <div class="form-group mb-2">
+    <label for="rate_value">Valor da tarifa</label>
+    <input type="number" class="form-control" id="rate_value" placeholder="0,3" name="rate_value" required>
+  </div>
+
+  <div class="form-group mb-2">
+    <label for="rate_type" >Tipo de tarifat</label>
+    <select class="form-control" id="rate_type" name="rate_type" required>
+      <option value="Comercial">Comercial</option>
+      <option value="Residencial">Residencial </option>
+      <option value="Industrial">Industrial</option>
+    </select>
+  </div>
+  
+  <button type="submit" class="btn btn-primary mt-4">enviar</button>
+</form>
+{% endblock %}
