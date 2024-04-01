@@ -35,11 +35,23 @@ def home(request):
     if request.method=="POST":
         rate_one =  int(request.POST["rate_one"])
         rate_two =  int(request.POST["rate_two"])
-        rate_three =  int(request.POST["rate_three"])
-        distributor_tax = float(request.POST['rate_value'])
-        tax_type = request.POST['rate_type']
         
-        calculator([rate_one,rate_two,rate_three],distributor_tax,tax_type)
+        rate_three =  int(request.POST["rate_three"])
+        distributor_tax = float(request.POST['distributor_tax'])
+        tax_type = request.POST['tax_type']
+  
+        (economia_anual,
+        economia_mensal,
+        desconto_aplicado,
+        cobertura)=calculator([rate_one,rate_two,rate_three],distributor_tax,tax_type)
+        
+        print("SAIDA")
+        print({
+            "economia_anual":economia_anual,
+            "economia_mensal":economia_mensal,
+            "desconto_aplicado":desconto_aplicado,
+            "cobertura":cobertura
+        })
         # calculadora = Consumption(
         #     consumo_mes1=rate_one,
         #     consumo_mes2=rate_two,

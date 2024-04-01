@@ -6,24 +6,24 @@
 <form method="POST" action="{% url 'home' %}" >
   {% csrf_token %}
   <div class="form-group mb-2">
-    <label for="rate_one">Taxa do 1-Mês</label>
+    <label for="rate_one">Gasto do primeiro mês</label>
     <input type="number" class="form-control" id="rate_one" name="rate_one"  placeholder="12.000,00" required>
 
-    <label for="rate_two">Taxa do 2-Mês</label>
+    <label for="rate_two">Gasto do segundo mês</label>
     <input type="number" class="form-control" id="rate_two" name="rate_two"  placeholder="12.000,00" required>
 
-    <label for="rate_three">Taxa do 3-Mês</label>
+    <label for="rate_three">Gasto do terceiro mês</label>
     <input type="number" class="form-control" id="rate" name="rate_three"  placeholder="12.000,00" required>
   </div>
 
   <div class="form-group mb-2">
-    <label for="rate_value">Valor da tarifa</label>
-    <input type="number" class="form-control" id="rate_value" placeholder="0,3" name="rate_value" required>
+    <label for="distributor_tax">Valor da tarifa</label>
+    <input type="number" class="form-control" id="distributor_tax" placeholder="0,3" name="distributor_tax" required step=".0000000000000001">
   </div>
 
   <div class="form-group mb-2">
-    <label for="rate_type" >Tipo de tarifat</label>
-    <select class="form-control" id="rate_type" name="rate_type" required>
+    <label for="tax_type" >Tipo de tarifat</label>
+    <select class="form-control" id="tax_type" name="tax_type" required>
       <option value="Comercial">Comercial</option>
       <option value="Residencial">Residencial </option>
       <option value="Industrial">Industrial</option>
