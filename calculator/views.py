@@ -44,13 +44,7 @@ def home(request):
         desconto_aplicado,
         cobertura)=calculator([rate_one,rate_two,rate_three],distributor_tax,tax_type)
         
-        print("SAIDA")
-        print({
-            "economia_anual":economia_anual,
-            "economia_mensal":economia_mensal,
-            "desconto_aplicado":desconto_aplicado,
-            "cobertura":cobertura
-        })
+        # salvar no banco
         # calculadora = Consumption(
         #     consumo_mes1=rate_one,
         #     consumo_mes2=rate_two,
@@ -59,6 +53,8 @@ def home(request):
         #     tipo_tarifa=rate_type
         # )
         # calculadora.save()
-        return render(request,'home.html')
+        
+        desconto = int(desconto_aplicado*100)
+        return render(request,'home.html',{"desconto":desconto})
     else:
         return render(request,'home.html')

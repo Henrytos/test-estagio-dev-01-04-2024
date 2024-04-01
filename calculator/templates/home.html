@@ -6,13 +6,13 @@
 <form method="POST" action="{% url 'home' %}" >
   {% csrf_token %}
   <div class="form-group mb-2">
-    <label for="rate_one">Gasto do primeiro mês</label>
+    <label for="rate_one">Gasto do primeiro mês (KWh)</label>
     <input type="number" class="form-control" id="rate_one" name="rate_one"  placeholder="12.000,00" required>
 
-    <label for="rate_two">Gasto do segundo mês</label>
+    <label for="rate_two">Gasto do segundo mês (KWh)</label>
     <input type="number" class="form-control" id="rate_two" name="rate_two"  placeholder="12.000,00" required>
 
-    <label for="rate_three">Gasto do terceiro mês</label>
+    <label for="rate_three">Gasto do terceiro mês (KWh)</label>
     <input type="number" class="form-control" id="rate" name="rate_three"  placeholder="12.000,00" required>
   </div>
 
@@ -22,7 +22,7 @@
   </div>
 
   <div class="form-group mb-2">
-    <label for="tax_type" >Tipo de tarifat</label>
+    <label for="tax_type" >Tipo de tarifa</label>
     <select class="form-control" id="tax_type" name="tax_type" required>
       <option value="Comercial">Comercial</option>
       <option value="Residencial">Residencial </option>
@@ -30,6 +30,14 @@
     </select>
   </div>
   
-  <button type="submit" class="btn btn-primary mt-4">enviar</button>
+  <button type="submit" class="btn btn-primary mt-2 mb-4">enviar</button>
 </form>
+{% if desconto %}
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Calculado</strong>:   desconto de  {{desconto}} %
+
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
 {% endblock %}
