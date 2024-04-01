@@ -32,10 +32,16 @@
   
   <button type="submit" class="btn btn-primary mt-2 mb-4">enviar</button>
 </form>
-{% if desconto %}
+{% if data %}
 
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Calculado</strong>:   desconto de  {{desconto}} %
+  <strong>Calculado</strong>:  
+  <ul>
+    <li><strong>Economia Anual</strong>: R${{data.economia_anual}}</li>   
+    <li><strong>Economia Mensal</strong>: R${{data.economia_mensal}}</li>
+    <li><strong>Desconto Aplicado</strong>: {{data.desconto}}%</li>
+    <li><strong>Cobertura</strong>: {{data.cobertura}}%</li>
+ </ul>
 
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>

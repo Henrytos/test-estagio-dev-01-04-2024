@@ -55,6 +55,13 @@ def home(request):
         # calculadora.save()
         
         desconto = int(desconto_aplicado*100)
-        return render(request,'home.html',{"desconto":desconto})
+        cobertura = int(cobertura*100)
+        data={
+            "economia_anual":economia_anual,
+            "economia_mensal":economia_mensal,
+            "desconto":desconto,
+            "cobertura":cobertura
+        }
+        return render(request,'home.html',{"data":data})
     else:
         return render(request,'home.html')
