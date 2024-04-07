@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Consumption
+from .models import Consumer ,ConsumptionRules
 from calculator_python import calculator
 
 # TODO: Your list view should do the following tasks
