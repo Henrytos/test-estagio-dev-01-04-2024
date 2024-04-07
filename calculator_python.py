@@ -14,9 +14,6 @@ def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tupl
         round(cobertura, 2),
     )
 
-
-    # Os outros testes foram ajustados de acordo com as correções feitas no código
-
 def calcular_desconto(consumo_medio:float , tax_type:float):
     desconto_total ={
         "Industrial":[0.18,0.15, 0.12],
@@ -47,6 +44,9 @@ def calcular_cobertura(consumo_medio:float):
 def calcular_consumo_medio(consumption:list , distributor_tax:float):
     consumo_medio= sum(consumption)/len(consumption)
     return consumo_medio * distributor_tax
+
+    # Os outros testes foram ajustados de acordo com as correções feitas no código
+
 
 if __name__ == "__main__":
     print("Testing...")
