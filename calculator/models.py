@@ -1,32 +1,6 @@
 from django.db import models
 
 
-class Consumer(models.Model):
-    name = models.CharField("Nome do Consumidor", max_length=128)
-    document = models.CharField("Documento(CPF/CNPJ)", max_length=14, unique=True)
-    zip_code = models.CharField("CEP", max_length=8, null=True, blank=True)
-    city = models.CharField("Cidade", max_length=128)
-    state = models.CharField("Estado", max_length=128)
-    consumption = models.IntegerField("Consumo(kWh)", blank=True, null=True)
-    distributor_tax = models.FloatField(
-        "Tarifa da Distribuidora", blank=True, null=True
-    )
-    #  create the foreign key for discount rule model here
-
-
-class DiscountRules(models.Model):
-    CONSUMER_TYPES = [
-        ('Residencial', 'Residencial'),
-        ('Comercial', 'Comercial'),
-        ('Industrial', 'Industrial'),
-    ]
-
-    consumption_range = models.CharField("Faixa de Consumo", max_length=50)
-    consumer_type = models.CharField("Tipo de Consumidor", max_length=20, choices=CONSUMER_TYPES)
-    cover_value = models.FloatField("Valor da Cobertura")
-    discount_value = models.FloatField("Valor do Desconto (%)")
-
-
 # TODO: Create the model DiscountRules below
 """Fields:
 -> Consumer type  
@@ -39,4 +13,37 @@ defined in the readme of the repository. Discount should be numerical
 
 # TODO: You must populate the consumer table with the data provided in the file consumers.xlsx
 #  and associate each one with the correct discount rule
+
+
+
+class DiscountRules(models.Model):
+    CONSUMER_TYPES = (
+        ('residencial', 'Residencial'),
+        ('comercial', 'Comercial'),
+        ('industrial', 'Industrial'),
+    )
+    
+    consumer_type = models.CharField("Tipo de Consumidor", max_length=20, choices=CONSUMER_TYPES)
+    
+    consumption_range = models.FloatField("consumo",)
+    cover = models.FloatField("cobertura",)
+    discount = models.IntegerField("valor_com_desconto",)
+    def __str__(self):
+        return f"{self.consumer_type} - R${self.consumption_range} - R${self.discount}"
+
+class Consumer(models.Model):
+    name = models.CharField("Nome do Consumidor", max_length=128)
+    document = models.CharField("Documento(CPF/CNPJ)", max_length=14, unique=True)
+    zip_code = models.CharField("CEP", max_length=8, null=True, blank=True)
+    city = models.CharField("Cidade", max_length=128)
+    state = models.CharField("Estado", max_length=128)
+    consumption = models.IntegerField("Consumo(kWh)", blank=True, null=True)
+    distributor_tax = models.FloatField(
+        "Tarifa da Distribuidora", blank=True, null=True
+    )
+    #  create the foreign key for discount rule model here
+    consumption_rule = models.ForeignKey(DiscountRules, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Regra de Desconto")
+
+    def __str__(self):
+        return f"{self.name} - {self.city} - {self.state}"
 
