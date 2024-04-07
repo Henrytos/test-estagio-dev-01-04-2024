@@ -1,41 +1,39 @@
 def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tuple:
-    consumo_medio = sum(consumption) / len(consumption)   
+    
+    consumo_medio =   calcular_consumo_medio(consumption,distributor_tax)
     desconto = calcular_desconto(consumo_medio,tax_type)
     cobertura = calcular_cobertura(consumo_medio)
-
-        
-    economia_mensal = (consumo_medio * distributor_tax) * (1 - desconto) * cobertura
-    economia_anual = economia_mensal * 12
-    desconto_aplicado = (1 - desconto) 
-   
     
+    economia_mensal = consumo_medio  * desconto * cobertura
+    economia_anual = economia_mensal * 12
+   
     return (
         round(economia_anual, 2),
         round(economia_mensal, 2),
-        round(desconto_aplicado, 2),
+        round(desconto, 2),
         round(cobertura, 2),
     )
 
 
     # Os outros testes foram ajustados de acordo com as correções feitas no código
 
-def calcular_desconto(consumo_medio,tax_type):
+def calcular_desconto(consumo_medio:float , tax_type:float):
     desconto_total ={
-        "Industrial":[0.82,0.85, 0.88],
-        "Comercial":[ 0.78,0.82,0.84],
-        "Residencial":[0.75,0.78,0.82]
+        "Industrial":[0.18,0.15, 0.12],
+        "Comercial":[ 0.22,0.18,0.16],
+        "Residencial":[0.25,0.22,0.18]
     }
-    desconto = 1
+    desconto = 0
     
     if consumo_medio > 20000:
         desconto = desconto_total[tax_type][0]
     elif 10000 <= consumo_medio <= 20000:
         desconto = desconto_total[tax_type][1]            
     else:
-        desconto = desconto_total[tax_type][2]
-    return desconto
+        desconto = desconto_total[tax_type][2]  
+    return  desconto
 
-def calcular_cobertura(consumo_medio):
+def calcular_cobertura(consumo_medio:float):
     cobertura = 0
 
     if consumo_medio > 20000:
@@ -45,6 +43,10 @@ def calcular_cobertura(consumo_medio):
     else:
         cobertura = 0.90   
     return cobertura         
+
+def calcular_consumo_medio(consumption:list , distributor_tax:float):
+    consumo_medio= sum(consumption)/len(consumption)
+    return consumo_medio * distributor_tax
 
 if __name__ == "__main__":
     print("Testing...")
