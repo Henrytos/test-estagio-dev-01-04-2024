@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from calculator_python import calculator
-
+from .forms import FormCalculate
 # TODO: Your list view should do the following tasks
 """
 -> Recover all consumers from the database
@@ -32,6 +32,7 @@ def view2():
 
 def home(request):
     if request.method=="POST":
+        form = FormCalculate(request.POST)
         rate_one =  int(request.POST["rate_one"])
         rate_two =  int(request.POST["rate_two"])
         
@@ -62,6 +63,6 @@ def home(request):
             "desconto":desconto,
             "cobertura":cobertura
         }
-        return render(request,'home.html',{"data":data})
+        return render(request,'home.html',{"data":data,"form":form})
     else:
         return render(request,'home.html')
