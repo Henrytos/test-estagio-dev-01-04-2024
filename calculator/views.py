@@ -1,7 +1,7 @@
 from django.shortcuts import render ,redirect
-from calculator_python import calculator
+from calculator_python import calculator, calcular_desconto
 import pandas as pd
-from .models import Consumer
+from .models import Consumer,DiscountRules
 
 # TODO: Your list view should do the following tasks
 """
@@ -34,19 +34,29 @@ def view2():
 
 def populate(request):
     tabela = pd.read_excel("./consumers.xlsx")
+
     for i , value in tabela.iterrows():
-        Consumer.objects.create({
-            'name':value['Nome'],
-            'document':value['Documento'],
-            'zip_code':'',
-            'city':value['Cidade'],
-            'state':value['Estado'],
-            'consumption':float(value['Consumo(kWh)']),
-            'distributor_tax':float(value['Tarifa da Distribuidora']),
-        })
         
+        desconto = calcular_desconto(value['Consumo(kWh)'],value['Tipo'])
+        
+        rule_residencial = DiscountRules.objects.create(
+        consumer_type=value['Tipo'],
+        consumption_range=value['Consumo(kWh)'],
+        cover=value['Cobertura(%)'],
+        discount=desconto
+        )
+        Consumer.objects.create(
+        name=value['Nome'],
+        document=value['Documento'],
+        zip_code='',
+        city=value['Cidade'],
+        state=value['Estado'],
+        consumption=150,
+        distributor_tax=value['Tarifa da Distribuidora'],
+        consumption_rule=rule_residencial  # Associa diretamente a instância de DiscountRules criada
+    )
     
-    return render(request,render)
+    return render(request,'populate.html')
     
 def list_consumers(request):
     consumers = Consumer.objects.all()
