@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from calculator_python import calculator
-from .forms import FormCalculate
+import pandas as pd
+from .models import Consumer
+
 # TODO: Your list view should do the following tasks
 """
 -> Recover all consumers from the database
@@ -30,9 +32,25 @@ def view2():
     # Create the second view here.
     pass
 
+def populate(request):
+    tabela = pd.read_excel("./consumers.xlsx")
+    for i , value in tabela.iterrows():
+        Consumer.objects.create({
+            'name':value['Nome'],
+            'document':value['Documento'],
+            'zip_code':'',
+            'city':value['Cidade'],
+            'state':value['Estado'],
+            'consumption':float(value['Consumo(kWh)']),
+            'distributor_tax':float(value['Tarifa da Distribuidora']),
+        })
+        
+    
+    return redirect('home')
+    
+
 def home(request):
     if request.method=="POST":
-        form = FormCalculate(request.POST)
         rate_one =  int(request.POST["rate_one"])
         rate_two =  int(request.POST["rate_two"])
         
@@ -63,6 +81,6 @@ def home(request):
             "desconto":desconto,
             "cobertura":cobertura
         }
-        return render(request,'home.html',{"data":data,"form":form})
+        return render(request,'home.html',{"data":data})
     else:
         return render(request,'home.html')

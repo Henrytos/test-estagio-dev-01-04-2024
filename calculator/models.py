@@ -25,9 +25,9 @@ class DiscountRules(models.Model):
     
     consumer_type = models.CharField("Tipo de Consumidor", max_length=20, choices=CONSUMER_TYPES)
     
-    consumption_range = models.FloatField("consumo",)
-    cover = models.FloatField("cobertura",)
-    discount = models.IntegerField("valor_com_desconto",)
+    consumption_range = models.FloatField("consumo (kwh)",)
+    cover = models.FloatField("cobertura %",)
+    discount = models.IntegerField("valor_com_desconto %",)
     def __str__(self):
         return f"{self.consumer_type} - R${self.consumption_range} - R${self.discount}"
 
