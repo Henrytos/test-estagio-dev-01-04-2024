@@ -1,0 +1,27 @@
+{% extends 'layout.html' %} {% block content %}
+
+<h2 class="text-center">Clientes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if consumers :%} {% for consumer in consumers %}
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    {% endfor %} {% endif %}
+  </tbody>
+</table>
+{% endif %} {% endblock %}

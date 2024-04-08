@@ -46,8 +46,23 @@ def populate(request):
         })
         
     
-    return redirect('home')
+    return render(request,render)
     
+def list_consumers(request):
+    consumers = Consumer.objects.all()
+    data = []
+    for consumer in consumers:
+        economia_anual,economia_mensal,desconto_aplicado,cobertura = calculator([consumer.consumption],consumer.distributor_tax,'A')
+        data.append({
+            'name':consumer.name,
+            'document':consumer.document,
+            'economia_anual':economia_anual,
+            'economia_mensal':economia_mensal,
+            'desconto_aplicado':desconto_aplicado,
+            'cobertura':cobertura
+        })
+    return render(request,'consumers.html',{"data":data})
+
 
 def home(request):
     if request.method=="POST":

@@ -1,0 +1,9 @@
+{% extends 'layout.html' %} {% block content %}
+<h2 class="text-center">Popular o banco de dados</h2>
+{% csrf_token %}
+
+<hr />
+<button>
+  <a href="{ % url 'home'%}"> voltar home </a>
+</button>
+{% endif %} {% endblock %}
